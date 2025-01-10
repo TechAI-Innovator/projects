@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Codes</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="code-section">
+            <!-- Left Side: Class Codes -->
+            <div class="codes-left">
+                <div class="class-codes">
+                    <h2>Class Codes</h2>
+                    <form action="/generate-student-codes" method="POST">
+                        <label for="batch-size">Number of Codes per Class:</label>
+                        <input type="number" id="batch-size" name="batch_size" value="20" min="1" required>
+                        <button type="submit">Generate Class Codes</button>
+                    </form>
+                    <p><a href="/download-student-codes" class="btn">Download Student Codes (CSV)</a></p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Code</th>
+                            <th>Used</th>
+                            <!-- <th>Expiry</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for code in class_codes %}
+                        <tr>
+                            <td>{{ code.class_name }}</td>
+                            <td>{{ code.code }}</td>
+                            <td>{{ 'Yes' if code.is_used else 'No' }}</td>
+                            <!-- <td>{{ code.code_expiry }}</td> -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right Side: Staff Codes -->
+            <div class="codes-right">
+                <div class="class-codes">
+                    <h2>Staff Verification Codes</h2>
+                    <form action="/generate-staff-codes" method="post">
+                        <button type="submit" class="btn">Generate Staff Verification Codes</button>
+                    </form>
+                    <p><a href="/download-staff-codes" class="btn">Download Staff Codes (CSV)</a></p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Surname</th>
+                            <th>First Name</th>
+                            <th>Verification Code</th>
+                            <th>Code Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for code in staff_codes %}
+                        <tr>
+                            <td>{{ code.surname }}</td>
+                            <td>{{ code.first_name }}</td>
+                            <td>{{ code.verification_code }}</td>
+                            <td>{{  'Yes' if code.code_used else 'No'}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Primary School Portal</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <section class="register-container">
+            <h2>Register</h2>
+            <form action="/register" method="post">
+                <!-- Name fields -->
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" name="surname" placeholder="Enter your surname" required>
+
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+
+                <label for="middlename">Middle Name</label>
+                <input type="text" id="middlename" name="middlename" placeholder="Enter your middle name" required>
+
+                <label for="DOB">Date of Birth</label>
+                <input type="date" id="DOB" name="date" placeholder="Enter you date of birth" required>
+
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phonenumber" name="phonenumber" placeholder="Enter your phone number" required>
+
+                <!-- Email and Password -->
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <!-- Address -->
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+                <!-- Code confirmation -->
+                <label for="registration_code">Registration Code</label>
+                <input type="text" id="registration_code" name="registration_code" placeholder="Enter your code" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter a secure password" required>
+                <small>Tip: Use at least 8 characters, including a mix of uppercase, lowercase, numbers, and symbols.</small>
+
+                <!-- Role Selection Dropdown -->
+                <div class="role-selection">
+                    <label for="role">Select Your Role:</label>
+                    <select id="role" name="role">
+                        <option value="student">Student</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                </div>
+            
+                <button type="submit">Register</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+</body>
+</html>

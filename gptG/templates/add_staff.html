@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Staff</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="add-staff-container">
+            <h2>Enter Staff Details</h2>
+            <form action="/add-staff" method="post">
+                <div class="form-container">
+                    <!-- Left Side: Staff Details -->
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" name="surname" placeholder="Enter surname" required>
+    
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Enter first name" required>
+    
+                        <label for="middle_name">Middle Name</label>
+                        <input type="text" id="middle_name" name="middle_name" placeholder="Enter middle name">
+                    </div>
+    
+                    <!-- Right Side: Class and Subject Selection -->
+                    <div class="form-group1">
+                        <label for="subject_id">Select Classes and Subjects</label>
+                        <div id="subject-selection">
+                            {% if available_subjects %}
+                                {% for class_info in available_subjects %}
+                                    <fieldset>
+                                        <legend>{{ class_info['class']['class_name'] }}</legend>
+                                        {% if class_info['subjects'] %}
+                                            <select name="subject_assignment[{{ class_info['class']['class_id'] }}][]" multiple>
+                                                {% for subject in class_info['subjects'] %}
+                                                    <option value="{{ subject['subject_id'] }}">{{ subject['subject_name'] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% else %}
+                                            <p>No subjects available for {{ class_info['class']['class_name'] }}</p>
+                                        {% endif %}
+                                    </fieldset>
+                                {% endfor %}
+                            {% else %}
+                                <p>No classes or subjects are available for assignment.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Admin Option -->
+                <div class="form-group2">
+                    <label for="is_admin">Make Admin</label>
+                    <input type="checkbox" id="is_admin" name="is_admin">
+                </div>
+    
+                <!-- Submit Button -->
+                <div class="button-group">
+                    <button type="submit">Add Staff</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    
+    
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

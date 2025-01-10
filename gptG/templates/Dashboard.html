@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - School Management</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+<body>
+    <!-- Toggle button for sidebar -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <a href="/update-profile" class="profile-link">
+                        <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                        <span>Profile</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+<div class="the-body">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <!-- Conditional sidebar content based on user role -->
+                <!-- Backend will render these links depending on whether user is staff or student -->
+                {% if user_role == 'staff' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/score-entry" class="{% if current_page == 'score-entry' %}active{% endif %}">Enter Scores</a></li>
+                <li><a href="/class-report" class="{% if current_page == 'class-report' %}active{% endif %}">Reports</a></li>
+
+                {% elif user_role == 'admin' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/score-entry" class="{% if current_page == 'score-entry' %}active{% endif %}">Enter Scores</a></li>
+                <li><a href="/class-report" class="{% if current_page == 'class-report' %}active{% endif %}">Reports</a></li>
+                <li><a href="/admin-dashboard" class="{% if current_page == 'admin-dashboard' %}active{% endif %}">Admin Dashboard</a></li>
+
+                {% elif user_role == 'student' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/student-report" class="{% if current_page == 'student-report' %}active{% endif %}">Reports</a></li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="dashboard-container">
+            <section class="welcome-section">
+                <h2>Welcome, {{ user_name }}</h2>
+                <p>Here is your dashboard overview.</p>
+            </section>
+
+            <section class="dashboard-cards">
+                <!-- Example of role-specific cards in the dashboard -->
+                {% if user_role == 'staff' or user_role == 'admin' %}
+                    <div class="card">
+                        <h3>Recent Activities</h3>
+                        <p>Details about recent tasks...</p>
+                    </div>
+                    <div class="card">
+                        <h3>Announcements</h3>
+                        <p>Any new school announcements...</p>
+                    </div>
+                {% elif user_role == 'student' %}
+                    <div class="card">
+                        <h3>Your Grades</h3>
+                        <p>Overview of your recent grades...</p>
+                    </div>
+                    <div class="card">
+                        <h3>Upcoming Assignments</h3>
+                        <p>List of assignments due...</p>
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+
+            // Adjust main content width based on sidebar visibility
+            const mainContent = document.querySelector('.main-content');
+            mainContent.classList.toggle('with-sidebar');
+        }
+
+    </script>
+        
+</body>
+</html>

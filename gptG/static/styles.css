@@ -1,0 +1,1705 @@
+/* ============================== */
+/*       GLOBAL STYLES           */
+/* ============================== */
+
+/* Reset styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Variables */
+:root {
+    --primary-color: #472a72; /* Deep Purple */
+    --primary-color2: #0079b6; /* Blue */
+    --secondary-color: #f4eb04; /* Bright Yellow */
+    --tertiary-color: #d1c4e9; /* Lighter Complementary Color */
+    --accent-color: #000; /* Black */
+    --background-color: #f9f9f9; /* Light Gray */
+    --text-color: #333; /* Dark Gray */
+    --header-gradient: linear-gradient(90deg, #472a72, #6a2e8b); /* Subtle gradient */
+}
+
+/* Body styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header styling */
+header {
+    width: 100%;
+    background: var(--header-gradient);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+h1, h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.menu {
+    display: flex;
+    gap: 1.5rem; /* Space between menu items */
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+/* Profile Picture Styling */
+.profile-pic {
+    width: 40px; /* Smaller size */
+    height: 40px; /* Ensure it's circular */
+    border-radius: 50%; /* Circle shape */
+    object-fit: cover; /* Crop and center image */
+    border: 2px solid white; /* Optional border for emphasis */
+    margin-right: 0.2rem; /* Space between image and text */
+}
+
+/* Footer styling */
+footer {
+    width: 100%;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+footer nav a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 0px 10px 10px 0px;
+    max-width: 200px;
+    width: 200px;
+    padding: 1rem;
+    margin-top: 15px;
+    background-color: var(--primary-color);
+    min-height: auto;
+    height: auto; /* Ensure it takes the entire height */
+    overflow-y: auto; /* Add scrolling if content exceeds height */
+    transition: left 0.3s ease, height 0.3s ease;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0; /* Space between list items */
+}
+
+.sidebar a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 4px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+.the-body {
+    display: flex;
+}
+
+.main-content {
+    position: relative; /* Allow it to be positioned independently */
+    top: 0;
+    margin-top: 14px;
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%); /* Adjust for element dimensions */
+    width: 70%; /* Optional: Adjust width to fit within the viewport */
+    max-width: 1200px; /* Optional: Cap the width */
+    padding: 1rem; /* Padding for inner spacing */
+    background-color: #fff; /* Background color */
+    border-radius: 8px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+    margin-bottom: 1rem;
+}
+
+.main-content section{
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.main-content h2 {
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.main-content p {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+
+/* Sidebar Visibility for Wide Screens */
+@media (min-width: 769px) {
+    .sidebar {
+        position: fixed;
+        top: 90px;
+        left: 0;
+        width: 200px;
+        min-height: auto; /* Remove fixed height dependency */
+        height: fit-content; /* Adjust dynamically based on content */
+    }
+
+    .sidebar-toggle {
+        display: none; /* Hide toggle button on larger screens */
+    }
+}
+
+/* Sidebar Toggle Button (for small screens) */
+.sidebar-toggle {
+    margin-top: 80px;
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 1rem; /* Ensure consistent spacing */
+    }
+
+    .menu {
+        flex-direction: row; /* Keep menu items in a row */
+        gap: 0.5rem; /* Adjust gap for smaller screens */
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -250px; /* Initially hidden */
+        width: 250px;
+        margin-top: 9rem;
+        display: flex;
+        min-height: auto;
+        flex-direction: column; /* Ensure content stacks vertically */
+        height: fit-content; /* Dynamically adjust height */
+        transition: left 0.3s ease, height 0.3s ease;
+        
+    }
+
+    .sidebar.active {
+        left: 0; /* Visible when active */
+        margin-top: 9rem;
+        display: flex;
+        min-height: auto;
+        flex-direction: column; /* Ensure content stacks vertically */
+        height: fit-content; /* Dynamically adjust height */
+        transition: left 0.3s ease, height 0.3s ease; /* Smooth height transition */
+    }
+
+    .main-content {
+        position: relative;
+        margin-bottom: 2rem;
+        top: 0;
+        margin-top: 22px; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%); /* Adjust for element dimensions */
+        width: 100%; /* Optional: Adjust width to fit within the viewport */
+        padding: 1rem; /* Padding for inner spacing */
+        background-color: #fff; /* Background color */
+        border-radius: 8px; /* Optional: Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+    }
+
+    main.with-sidebar {
+        margin-left: 250px; /* Adjust for sidebar */
+    }
+}
+
+@media (max-width: 375px) { /* Targets iPhone SE and similar small screens */
+    .header-content {
+        padding: 0.5rem 1rem; /* Reduce padding for better fit */
+        flex-wrap: wrap; /* Allow wrapping if content overflows */
+    }
+
+    .profile-section {
+        margin-left: auto; /* Push profile section to the far right */
+    }
+
+    .profile-link {
+        gap: 0.2rem; /* Reduce space between image and text */
+    }
+}
+
+
+/* Button styling */
+button[type="submit"], .sidebar-toggle {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover, .sidebar-toggle:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+/* ============================== */
+/*       PAGE-SPECIFIC STYLES     */
+/* ============================== */
+
+/* ============================== */
+/*       Login Page CSS           */
+/* ============================== */
+
+.login-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    margin: 2rem auto;
+    text-align: center;
+    border: 2px solid var(--primary-color); /* Highlighted border */
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+}
+
+.login-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.login-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.login-container label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(71, 42, 114, 0.3);
+}
+
+.hint {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.recover-link, .register-link {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--primary-color2);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.recover-link:hover, .register-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #e1d604;
+    transform: translateY(-2px);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .login-container h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* ============================== */
+/* Registration Page,             */
+/* Forgot Password Page,          */
+/* and                            */
+/* Profile page                   */
+/* ============================== */
+
+.register-container, .profile-page{
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    margin: 2.5rem auto;
+    text-align: left;
+    border: 2px solid var(--primary-color); /* Highlight border */
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.register-container:hover, .profile-page:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.register-container h2, .profile-page h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.register-container label, .profile-page label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.register-container input,
+.profile-page input,
+.register-container select,
+.profile-page select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.register-container input:focus,
+.profile-page input:focus,
+.register-container select:focus,
+.profile-page select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(71, 42, 114, 0.3);
+}
+
+.register-container small, .profile-page small {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #777;
+}
+
+/* Dropdown styling */
+.role-selection {
+    margin-bottom: 1.5rem;
+}
+
+.role-selection label {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #e1d604;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-container, .profile-page {
+        padding: 2rem;
+    }
+
+    .register-container h2, .profile-page h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* ============================== */
+/* DASHBOARD                      */
+/* and                            */
+/* Admin Dashboard                */
+/* ============================== */
+
+/* Dashboard Container */
+.dashboard-container, .admin-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Add spacing between sections */
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--tertiary-color);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+/* Term Setting Form */
+.admin-dashboard-container form {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard-container form h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--primary-color2);
+}
+
+.admin-dashboard-container form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.admin-dashboard-container form select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    background-color: #fff;
+    color: #333;
+}
+
+.admin-dashboard-container form button {
+    background-color: var(--primary-color2);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-dashboard-container form button:hover {
+    background-color: var(--primary-color);
+}
+
+/* Dashboard Cards */
+.dashboard-cards, .admin-dashboard-cards{
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 1.5rem; /* Space between cards */
+}
+
+.card, .admin-card{
+    background-color: #f4eb04; 
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.card p {
+    font-size: 1rem;
+}
+
+.admin-card a {
+    display: block;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.admin-card a:hover {
+    color: var(--primary-color2);
+}
+
+.card:hover, .admin-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .welcome-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-section p {
+        font-size: 1rem;
+    }
+
+    .admin-dashboard-cards {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+    }
+
+    .card, .admin-card{
+        padding: 0.75rem;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+
+    .admin-card a {
+        font-size: 1rem;
+    }
+}
+
+
+/* ============================== */
+/* Score Entry Page               */
+/* And                            */
+/* Class/Student report Page      */
+/* ============================== */
+
+/* Styling for filters section */
+.selection-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.selection-section label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.selection-section select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.selection-section select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.selection-section .reset-button {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.selection-section .reset-button:hover {
+    background-color: #e1d604;
+    text-decoration: underline;
+}
+
+/* Styling for search section */
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.search-section label {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.search-section input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.search-section input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Styling for buttons */
+button[type="submit"], .reset-button {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button[type="submit"]:hover, .reset-button:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+
+/* Score Form Field Styling  */
+input[type="number"].readonly-field {
+    background-color: #e0e0e0; /* Fainter background for fields with existing scores */
+    color: #666; /* Fainter text color */
+    border: 1px solid #ccc; /* Subtle border for contrast */
+    pointer-events: none; /* Prevent interaction */
+    cursor: not-allowed; /* Indicate it's read-only */
+}
+
+/* Transition for smooth effect */
+input[type="number"] {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Active field styling when edited */
+input[type="number"]:not(.readonly-field) {
+    background-color: #fff; /* Reset to white when editable */
+    color: #333; /* Standard text color */
+}
+
+/* Filters Section - Mobile  */
+@media (max-width: 768px) {
+    .selection-section label,
+    .selection-section select,
+    .selection-section .reset-button {
+        display: block; /* Display elements as blocks */
+        width: 100%; /* Full width for better usability */
+        margin-bottom: 1rem; /* Space between elements */
+        text-align: left; /* Align labels and links to the left */
+    }
+
+    .selection-section select {
+        padding: 0.5rem;
+        font-size: 1rem; /* Adjust font size for readability */
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+    }
+
+    .selection-section .reset-button {
+        margin-top: 0.5rem;
+        text-align: center;
+        background-color: var(--secondary-color); /* Reset button background */
+        color: var(--accent-color); /* Reset button text color */
+        text-decoration: none;
+        padding: 0.75rem;
+        display: inline-block;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .selection-section .reset-button:hover {
+        background-color: #e1d604; /* Hover effect */
+    }
+}
+
+/* Specific styles for the table */
+.student-list-container {
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+    margin-top: 1rem;
+    border-radius: 8px; /* Rounded corners for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#student-list-table {
+    width: 100%; /* Full width of the container */
+    border-collapse: collapse; /* Remove gaps between table cells */
+    text-align: center; /* Center text in cells */
+    background-color: white; /* White background for clarity */
+}
+
+#student-list-table th, 
+#student-list-table td {
+    padding: 0.75rem 1rem; /* Add padding for better readability */
+    border: 1px solid var(--tertiary-color); /* Light borders */
+    font-size: 0.9rem; /* Adjust font size */
+    color: var(--text-color); /* Use text color from root */
+}
+
+#student-list-table th {
+    background-color: var(--primary-color2); /* Blue header background */
+    color: white; /* White text for contrast */
+    text-transform: uppercase; /* Optional: Make header text uppercase */
+    font-weight: 600; /* Bold text for headers */
+    position: sticky; /* Keep headers visible when scrolling */
+    top: 0; /* Required for sticky headers */
+    z-index: 1; /* Ensure it stays above table content */
+}
+
+
+#student-list-table tbody tr:hover {
+    background-color: #b3d9f2; /* Highlight row on hover */
+    color: white; /* Text turns white for contrast */
+    cursor: pointer; /* Pointer cursor for hover effect */
+}
+
+#student-list-table td {
+    vertical-align: middle; /* Center-align content vertically */
+}
+
+#student-list-table caption {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color2); /* Blue for the caption text */
+    text-align: center;
+}
+
+/* Small screens: Make the table scrollable */
+@media (max-width: 768px) {
+    #student-list-table th, 
+    #student-list-table td {
+        padding: 0.5rem; /* Adjust padding for smaller screens */
+        font-size: 0.8rem; /* Slightly smaller text */
+    }
+
+    #student-list-table {
+        display: block; /* Force table to become block */
+        overflow-x: auto; /* Allow horizontal scrolling */
+    }
+}
+
+/* ============================== */
+/* Help & Support Page            */
+/* and                            */
+/* Contact Us Page                */
+/* ============================== */
+
+/* Support Container Styling */
+.support-container, .contact-page {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 1rem auto;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.support-container h2, .contact-page h2 {
+    color: var(--primary-color2);
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.contact-page p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* FAQ Section Styling */
+.faq {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-left: 5px solid var(--primary-color);
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq h3 {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+
+.faq p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.faq a {
+    color: var(--primary-color2);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.faq a:hover {
+    color: var(--secondary-color);
+}
+
+/* Contact Support Section */
+.support-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.support-container ul li {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.support-container ul li a {
+    color: var(--primary-color2);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.support-container ul li a:hover {
+    color: var(--secondary-color);
+}
+
+/* Styles specific to Contact page */
+.contact-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.contact-options p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.contact-options a {
+    color: var(--primary-color2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-options a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .support-container, .contact-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .support-container h2 {
+        font-size: 1.75rem;
+    }
+
+    .faq {
+        padding: 0.75rem;
+    }
+
+    .faq h3 {
+        font-size: 1.15rem;
+    }
+
+    .faq p {
+        font-size: 0.95rem;
+    }
+
+    .support-container ul li {
+        font-size: 0.95rem;
+    }
+
+    .contact-options p {
+        text-align: left;
+    }
+}
+
+@media (max-width: 375px) {
+    .support-container, .contact-page {
+        padding: 1rem;
+    }
+
+    .support-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .faq {
+        padding: 0.5rem;
+    }
+
+    .faq h3 {
+        font-size: 1rem;
+    }
+
+    .faq p {
+        font-size: 0.9rem;
+    }
+
+    .support-container ul li {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================== */
+/*       Add Staff Page CSS       */
+/* ============================== */
+
+/* Add Staff Container */
+.add-staff-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+}
+
+.add-staff-container h2 {
+    text-align: center;
+    color: var(--primary-color2);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* Form styling */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color2);
+    box-shadow: 0 0 4px rgba(0, 121, 182, 0.4);
+}
+
+/* Class and Subject Selection */
+.form-group1 {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#subject-selection {
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+#subject-selection legend {
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 0 0.5rem;
+}
+
+#subject-selection select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+#subject-selection select:focus {
+    outline: none;
+    border-color: var(--primary-color2);
+    box-shadow: 0 0 4px rgba(0, 121, 182, 0.4);
+}
+
+/* Admin Option */
+.form-group2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.form-group2 label {
+    font-size: larger;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Button Group */
+.button-group {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.button-group button {
+    background-color: var(--secondary-color);
+    color: black;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-group button:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        flex: 1 1 100%;
+    }
+
+    #subject-selection {
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-staff-container {
+        padding: 1rem;
+    }
+
+    .add-staff-container h2 {
+        font-size: 1.5rem;
+    }
+
+    #subject-selection select {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================== */
+/* Manage Staff                   */
+/* ============================== */
+
+.staff-selection {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    margin-top: 5px;
+    background-color: var(--tertiary-color);
+    align-items: center;
+    border-radius: 0 0px 8px 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.staff-selection select {
+    width: 300px; /* Increases the width for better visibility */
+    padding: 10px; /* Adds space inside the select field for better readability */
+    font-size: 16px; /* Makes the text larger and easier to read */
+    border: 2px solid #007BFF; /* Adds a visible blue border */
+    border-radius: 5px; /* Rounds the corners for a modern look */
+    background-color: #f9f9f9; /* Gives a light background color */
+    color: #333; /* Sets a contrasting text color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    outline: none; /* Removes the default focus outline */
+    transition: all 0.3s ease; /* Adds a smooth hover and focus transition */
+}
+
+.staff-selection select:focus {
+    border-color: #0056b3; /* Changes the border color when focused */
+    background-color: #ffffff; /* Brightens the background color on focus */
+    box-shadow: 0 4px 8px rgba(0, 91, 187, 0.2); /* Enhances shadow on focus */
+}
+
+.staff-selection select:hover {
+    cursor: pointer; /* Changes the cursor to indicate interactivity */
+    background-color: #ffffff; /* Slightly brightens the background on hover */
+}
+
+/* Layout for management container */
+.management-container, .code-section {
+    display: flex;
+    align-content: center;
+    justify-content:center;
+    margin: 2rem;
+    flex-wrap: wrap;
+}
+
+.assignments-container,
+.add-assignments-container,
+.code-left,
+.code-right {
+    flex: 1;
+    padding: 20px;
+    margin: 1;
+    background-color: var(--background-color);
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: fit-content;
+}
+
+.assignments-container h2,
+.add-assignments-container h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.form-container1 {
+    margin-bottom: 20px;
+}
+
+.form-container1 fieldset {
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.form-container1 legend {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.form-container1 label {
+    display: inline-block;
+    margin-left: 5px;
+    color: var(--text-color);
+}
+
+/* Buttons */
+button {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+
+/* Make Admin Section */
+.make-admin {
+    display: flex;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: var(--tertiary-color);
+    border: 1px solid var(--primary-color2);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.make-admin h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .staff-selection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+
+    .staff-selection label,
+    .staff-selection select,
+    .staff-selection button {
+        width: 60%;
+        max-width: 400px;
+        margin: 0.2rem;
+        font-size: large;
+    }
+
+    .management-container {
+        flex-direction: column;
+    }
+
+    .assignments-container,
+    .add-assignments-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    legend {
+        font-size: 1rem;
+    }
+}
+
+/* ============================== */
+/* Class Code                     */
+/* ============================== */
+.code-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem; /* Space between left and right sections */
+    padding: 1.5rem;
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 1200px;
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.codes-left,
+.codes-right {
+    width: 48%; /* Take equal space */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.class-codes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.class-codes h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.class-codes form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.class-codes label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.class-codes input[type="number"],
+.class-codes button {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    width: 80%;
+}
+
+.class-codes input[type="number"] {
+    width: 60%;
+    border: 1px solid var(--secondary-color);
+    background-color: white;
+    color: var(--text-color);
+}
+
+.class-codes button {
+    background-color: var(--secondary-color);
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.class-codes button:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+.code-section table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.code-section th,
+.code-section td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--tertiary-color);
+}
+
+.code-section th {
+    background-color: var(--primary-color2);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.code-section tbody tr:hover {
+    background-color: #b3d9f2;
+    color: black;
+}
+
+.code-section caption {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color2);
+    text-align: center;
+}
+
+/* Links */
+.code-section a {
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.code-section a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .code-section {
+        flex-direction: column; /* Stack sections vertically */
+        gap: 1.5rem; /* Adjust gap for smaller screens */
+        padding: 1rem; /* Reduce padding for compact layout */
+    }
+
+    .codes-left,
+    .codes-right {
+        width: 100%; /* Take full width in vertical layout */
+        padding: 1rem; /* Adjust padding for smaller screens */
+    }
+
+    .class-codes {
+        gap: 0.8rem; /* Reduce gap between elements */
+        padding: 0.8rem; /* Compact padding */
+    }
+
+    .class-codes input[type="number"],
+    .class-codes button {
+        width: 90%; /* Adjust width for smaller screen */
+    }
+
+    .code-section table {
+        font-size: 0.9rem; /* Reduce font size for tables */
+    }
+
+    .code-section th,
+    .code-section td {
+        padding: 0.5rem; /* Compact padding for table cells */
+    }
+}
+
+/* Media Query for Mobile (Width 480px and below) */
+@media (max-width: 480px) {
+    .code-section {
+        padding: 0.5rem; /* Further reduce padding */
+    }
+
+    .class-codes {
+        gap: 0.5rem; /* Further reduce gap between elements */
+        padding: 0.5rem; /* Minimized padding for compact view */
+    }
+
+    .class-codes h2 {
+        font-size: 1.2rem; /* Reduce heading size */
+    }
+
+    .class-codes input[type="number"],
+    .class-codes button {
+        font-size: 0.9rem; /* Reduce input/button font size */
+    }
+
+    .code-section table {
+        font-size: 0.8rem; /* Smaller font size for tables */
+    }
+
+    .code-section th,
+    .code-section td {
+        padding: 0.4rem; /* Further compact table padding */
+    }
+
+    .code-section caption {
+        font-size: 1rem; /* Reduce caption size */
+    }
+}
+
+/* ============================== */
+/* Logout                         */
+/* ============================== */
+
+.logout-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    color: #333;
+}
+
+.logout-page h2 {
+    font-size: 2rem;
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.logout-page p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+

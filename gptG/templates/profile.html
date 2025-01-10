@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Primary School Portal</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <h2>Your Profile</h2>
+        <p>Update your personal information below:</p>
+        
+        <form action="/update-profile" method="POST">
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="surname" placeholder="Enter your surname">
+
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name">
+
+            <label for="middlename">Middle Name</label>
+            <input type="text" id="middlename" name="middlename" placeholder="Enter your middle name">
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter username">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+            
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+            
+            <label for="password">New Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter a new password">
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
+            
+            <button type="submit">Update Profile</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

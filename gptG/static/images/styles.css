@@ -1,0 +1,1523 @@
+/* ============================== */
+/*       GLOBAL STYLES           */
+/* ============================== */
+
+/* Reset styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Variables */
+:root {
+    --primary-color: #472a72; /* Deep Purple */
+    --primary-color2: #0079b6; /* Blue */
+    --secondary-color: #f4eb04; /* Bright Yellow */
+    --tertiary-color: #d1c4e9; /* Lighter Complementary Color */
+    --accent-color: #000; /* Black */
+    --background-color: #f9f9f9; /* Light Gray */
+    --text-color: #333; /* Dark Gray */
+    --header-gradient: linear-gradient(90deg, #472a72, #6a2e8b); /* Subtle gradient */
+}
+
+/* Body styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header styling */
+header {
+    width: 100%;
+    background: var(--header-gradient);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+h1, h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.menu {
+    display: flex;
+    gap: 1.5rem; /* Space between menu items */
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+/* Profile Picture Styling */
+.profile-pic {
+    width: 40px; /* Smaller size */
+    height: 40px; /* Ensure it's circular */
+    border-radius: 50%; /* Circle shape */
+    object-fit: cover; /* Crop and center image */
+    border: 2px solid white; /* Optional border for emphasis */
+    margin-right: 0.2rem; /* Space between image and text */
+}
+
+/* Footer styling */
+footer {
+    width: 100%;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+footer nav a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 0px 10px 10px 0px;
+    max-width: 200px;
+    width: 200px;
+    padding: 1rem;
+    margin-top: 15px;
+    background-color: var(--primary-color);
+    min-height: auto;
+    height: auto; /* Ensure it takes the entire height */
+    overflow-y: auto; /* Add scrolling if content exceeds height */
+    transition: left 0.3s ease, height 0.3s ease;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0; /* Space between list items */
+}
+
+.sidebar a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 4px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+.the-body {
+    display: flex;
+}
+
+.main-content {
+    position: relative; /* Allow it to be positioned independently */
+    top: 0;
+    margin-top: 14px;
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%); /* Adjust for element dimensions */
+    width: 70%; /* Optional: Adjust width to fit within the viewport */
+    max-width: 1200px; /* Optional: Cap the width */
+    padding: 1rem; /* Padding for inner spacing */
+    background-color: #fff; /* Background color */
+    border-radius: 8px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+    margin-bottom: 1rem;
+}
+
+.main-content section{
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.main-content h2 {
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.main-content p {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+
+/* Sidebar Visibility for Wide Screens */
+@media (min-width: 769px) {
+    .sidebar {
+        position: fixed;
+        top: 90px;
+        left: 0;
+        width: 200px;
+        min-height: auto; /* Remove fixed height dependency */
+        height: fit-content; /* Adjust dynamically based on content */
+    }
+
+    .sidebar-toggle {
+        display: none; /* Hide toggle button on larger screens */
+    }
+}
+
+/* Sidebar Toggle Button (for small screens) */
+.sidebar-toggle {
+    margin-top: 80px;
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 1rem; /* Ensure consistent spacing */
+    }
+
+    .menu {
+        flex-direction: row; /* Keep menu items in a row */
+        gap: 0.5rem; /* Adjust gap for smaller screens */
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -250px; /* Initially hidden */
+        width: 250px;
+        margin-top: 9rem;
+        display: flex;
+        min-height: auto;
+        flex-direction: column; /* Ensure content stacks vertically */
+        height: fit-content; /* Dynamically adjust height */
+        transition: left 0.3s ease, height 0.3s ease;
+        
+    }
+
+    .sidebar.active {
+        left: 0; /* Visible when active */
+        margin-top: 9rem;
+        display: flex;
+        min-height: auto;
+        flex-direction: column; /* Ensure content stacks vertically */
+        height: fit-content; /* Dynamically adjust height */
+        transition: left 0.3s ease, height 0.3s ease; /* Smooth height transition */
+    }
+
+    .main-content {
+        position: relative;
+        margin-bottom: 2rem;
+        top: 0;
+        margin-top: 22px; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%); /* Adjust for element dimensions */
+        width: 100%; /* Optional: Adjust width to fit within the viewport */
+        padding: 1rem; /* Padding for inner spacing */
+        background-color: #fff; /* Background color */
+        border-radius: 8px; /* Optional: Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+    }
+
+    main.with-sidebar {
+        margin-left: 250px; /* Adjust for sidebar */
+    }
+}
+
+@media (max-width: 375px) { /* Targets iPhone SE and similar small screens */
+    .header-content {
+        padding: 0.5rem 1rem; /* Reduce padding for better fit */
+        flex-wrap: wrap; /* Allow wrapping if content overflows */
+    }
+
+    .profile-section {
+        margin-left: auto; /* Push profile section to the far right */
+    }
+
+    .profile-link {
+        gap: 0.2rem; /* Reduce space between image and text */
+    }
+}
+
+
+/* Button styling */
+button[type="submit"], .sidebar-toggle {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover, .sidebar-toggle:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+/* ============================== */
+/*       PAGE-SPECIFIC STYLES     */
+/* ============================== */
+
+/* ============================== */
+/*       Login Page CSS           */
+/* ============================== */
+
+.login-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    margin: 2rem auto;
+    text-align: center;
+    border: 2px solid var(--primary-color); /* Highlighted border */
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+}
+
+.login-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.login-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.login-container label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(71, 42, 114, 0.3);
+}
+
+.hint {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.recover-link, .register-link {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.recover-link:hover, .register-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #e1d604;
+    transform: translateY(-2px);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .login-container h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* ============================== */
+/*       Registration Page        */
+/* ============================== */
+
+.register-container {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    margin: 2.5rem auto;
+    text-align: left;
+    border: 2px solid var(--primary-color); /* Highlight border */
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.register-container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.register-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.register-container label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.register-container input,
+.register-container select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.register-container input:focus,
+.register-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(71, 42, 114, 0.3);
+}
+
+.register-container small {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #777;
+}
+
+/* Dropdown styling */
+.role-selection {
+    margin-bottom: 1.5rem;
+}
+
+.role-selection label {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #e1d604;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-container {
+        padding: 2rem;
+    }
+
+    .register-container h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* ============================== */
+/*   DASHBOARD-SPECIFIC CSS       */
+/* ============================== */
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Add spacing between sections */
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--tertiary-color);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 1.5rem; /* Space between cards */
+}
+
+.card {
+    background-color: #f4eb04; 
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.card p {
+    font-size: 1rem;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .welcome-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-section p {
+        font-size: 1rem;
+    }
+
+    .card {
+        padding: 0.75rem;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* ============================== */
+/* Score Entry Page               */
+/* And                            */
+/* Class/Student report Page      */
+/* ============================== */
+
+/* Styling for filters section */
+.selection-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.selection-section label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.selection-section select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.selection-section select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.selection-section .reset-button {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.selection-section .reset-button:hover {
+    background-color: #e1d604;
+    text-decoration: underline;
+}
+
+/* Styling for search section */
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.search-section label {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.search-section input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.search-section input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Styling for buttons */
+button[type="submit"], .reset-button {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button[type="submit"]:hover, .reset-button:hover {
+    background-color: #e1d604;
+    transform: scale(1.05);
+}
+
+
+/* Score Form Field Styling  */
+input[type="number"].readonly-field {
+    background-color: #e0e0e0; /* Fainter background for fields with existing scores */
+    color: #666; /* Fainter text color */
+    border: 1px solid #ccc; /* Subtle border for contrast */
+    pointer-events: none; /* Prevent interaction */
+    cursor: not-allowed; /* Indicate it's read-only */
+}
+
+/* Transition for smooth effect */
+input[type="number"] {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Active field styling when edited */
+input[type="number"]:not(.readonly-field) {
+    background-color: #fff; /* Reset to white when editable */
+    color: #333; /* Standard text color */
+}
+
+/* Filters Section - Mobile  */
+@media (max-width: 768px) {
+    .selection-section label,
+    .selection-section select,
+    .selection-section .reset-button {
+        display: block; /* Display elements as blocks */
+        width: 100%; /* Full width for better usability */
+        margin-bottom: 1rem; /* Space between elements */
+        text-align: left; /* Align labels and links to the left */
+    }
+
+    .selection-section select {
+        padding: 0.5rem;
+        font-size: 1rem; /* Adjust font size for readability */
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+    }
+
+    .selection-section .reset-button {
+        margin-top: 0.5rem;
+        text-align: center;
+        background-color: var(--secondary-color); /* Reset button background */
+        color: var(--accent-color); /* Reset button text color */
+        text-decoration: none;
+        padding: 0.75rem;
+        display: inline-block;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .selection-section .reset-button:hover {
+        background-color: #e1d604; /* Hover effect */
+    }
+}
+
+/* Specific styles for the table */
+.student-list-container {
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+    margin-top: 1rem;
+    border-radius: 8px; /* Rounded corners for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#student-list-table {
+    width: 100%; /* Full width of the container */
+    border-collapse: collapse; /* Remove gaps between table cells */
+    text-align: center; /* Center text in cells */
+    background-color: white; /* White background for clarity */
+}
+
+#student-list-table th, 
+#student-list-table td {
+    padding: 0.75rem 1rem; /* Add padding for better readability */
+    border: 1px solid var(--tertiary-color); /* Light borders */
+    font-size: 0.9rem; /* Adjust font size */
+    color: var(--text-color); /* Use text color from root */
+}
+
+#student-list-table th {
+    background-color: var(--primary-color2); /* Blue header background */
+    color: white; /* White text for contrast */
+    text-transform: uppercase; /* Optional: Make header text uppercase */
+    font-weight: 600; /* Bold text for headers */
+    position: sticky; /* Keep headers visible when scrolling */
+    top: 0; /* Required for sticky headers */
+    z-index: 1; /* Ensure it stays above table content */
+}
+
+
+#student-list-table tbody tr:hover {
+    background-color: #b3d9f2; /* Highlight row on hover */
+    color: white; /* Text turns white for contrast */
+    cursor: pointer; /* Pointer cursor for hover effect */
+}
+
+#student-list-table td {
+    vertical-align: middle; /* Center-align content vertically */
+}
+
+#student-list-table caption {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color2); /* Blue for the caption text */
+    text-align: center;
+}
+
+/* Small screens: Make the table scrollable */
+@media (max-width: 768px) {
+    #student-list-table th, 
+    #student-list-table td {
+        padding: 0.5rem; /* Adjust padding for smaller screens */
+        font-size: 0.8rem; /* Slightly smaller text */
+    }
+
+    #student-list-table {
+        display: block; /* Force table to become block */
+        overflow-x: auto; /* Allow horizontal scrolling */
+    }
+}
+
+/* ============================== */
+/* Help & Support Page            */
+/* ============================== */
+
+.support-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.support-container h2 {
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.faq {
+    margin-bottom: 1.5rem;
+}
+
+.faq h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.faq p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.support-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.support-container ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.support-container a {
+    color: #0079b6;
+    text-decoration: none;
+}
+
+.support-container a:hover {
+    text-decoration: underline;
+}
+
+/* ============================== */
+/* Settings Page                  */
+/* ============================== */
+
+.settings-page {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-page h2 {
+    color: #0079b6;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.settings-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-page label {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.settings-page input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.settings-page button {
+    padding: 0.7rem;
+    background-color: #0079b6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.settings-page button:hover {
+    background-color: #005f8c;
+}
+
+/* Admin Settings Section */
+.admin-settings {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.admin-settings h2 {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.admin-settings p {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* ============================== */
+/* Admin Panel                    */
+/* ============================== */
+
+.admin-panel {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.admin-panel h2 {
+    color: #0079b6;
+    margin-bottom: 1.5rem;
+}
+
+.admin-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.admin-section {
+    width: 220px;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-section h3 {
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-section p {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.admin-section button {
+    padding: 0.5rem 1rem;
+    background-color: #0079b6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: not-allowed;
+    font-size: 0.9rem;
+}
+
+.admin-section button:hover {
+    background-color: #005f8c;
+}
+
+/* ============================== */
+/* Logout                         */
+/* ============================== */
+
+.logout-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    color: #333;
+}
+
+.logout-page h2 {
+    font-size: 2rem;
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.logout-page p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* ============================== */
+/* contact                        */
+/* ============================== */
+
+/* Contact Page Styling */
+.contact-page {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.contact-page h2 {
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.contact-options {
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.contact-options a {
+    color: #0079b6;
+    text-decoration: none;
+}
+
+.contact-options a:hover {
+    text-decoration: underline;
+}
+
+/* ============================== */
+/* Profile                        */
+/* ============================== */
+
+.profile-page {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-page h2 {
+    color: #0079b6;
+    margin-bottom: 1rem;
+}
+
+.profile-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile-page label {
+    font-size: 1rem;
+    color: #333;
+}
+
+.profile-page input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.profile-page button {
+    padding: 0.7rem;
+    background-color: #0079b6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.profile-page button:hover {
+    background-color: #005f8c;
+}
+
+
+
+
+/* ==================================
+   CSS FOR MANAGE STAFF PAGE
+   ================================== */
+.staff-container {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 500px;
+}
+
+.staff-container select{
+    font-size:large;
+}
+
+.staff-container h2 {
+    text-align: center;
+    color: #914775;
+    margin-bottom: 20px;
+}
+
+/* Layout for management container */
+.management-container {
+    display: flex;
+    align-content: center;
+    justify-content:center;
+    margin: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Style for assignments-container */
+.assignments-container, .add-assignments-container {
+    max-width: 25%;
+    margin: 1rem;
+    flex: 1;
+}
+
+.assignments-container label, .add-assignments-container label {
+    font-weight: bold;
+}
+
+.assignments-container h2, .add-assignments-container h2 {
+    margin-bottom: 2rem;
+}
+
+.assignments-container input, .add-assignments-container input[type="checkbox"] {
+    margin: 0.5rem 0rem 0rem 0.5rem;
+}
+
+.assignments-container legend, .add-assignments-container legend {
+    font-size:large;
+    font-weight: bold;
+}
+
+/* Style for make-admin section */
+.make-admin {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+   
+   
+   
+   /* ==================================
+      CSS FOR ADD STAFF PAGE
+      ================================== */
+    .add-staff-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-staff-container h2 {
+        text-align: center;
+        color: #914775;
+        margin-bottom: 20px;
+    }
+
+    /* Container for the two sections */
+    .form-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    /* Left side: Staff Details */
+    .form-group {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Right side: Classes and Subjects */
+    .form-group1 {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .form-group1 label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-group1 select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Admin checkbox */
+    .form-group label[for="is_admin"] {
+        padding-top: 30px;
+        text-align: center;
+    }
+
+    .form-group input[type="checkbox"] {
+        margin-top: 10px;
+    }
+
+    /* Button */
+    .button-group {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .button-group button {
+        padding: 10px 20px;
+        background-color: #0079b6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button-group button:hover {
+        background-color: #005f8d;
+    }
+
+
+    /* Flash Messages */
+    .flash-messages {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .flash-messages li {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+    }
+
+    .flash-messages .error {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .flash-messages .success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+
+            /* ==================================
+                CSS FOR ADMIN DASHBOARD PAGE
+                ================================== */
+                .admin-dashboard-container {
+                    margin: 20px auto;
+                    padding: 20px;
+                    background-color: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    max-width: 1000px;
+                }
+
+                .admin-dashboard-container h2 {
+                    text-align: center;
+                    color: #914775;
+                    margin-bottom: 20px;
+                }
+
+                .admin-dashboard-cards {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 20px;
+                    flex-wrap: wrap;
+                }
+
+                .admin-card {
+                    flex: 1;
+                    background-color: #0079b6;
+                    color: white;
+                    text-align: center;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+
+                .admin-card:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .admin-card a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                }
+
+
+/* ==================================
+        CLASS CODES PAGE
+================================== */
+
+input[type="number"] {
+    padding: 0.8rem;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+        /* Code Section */
+        .code-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 70%;
+            margin: 0 auto;
+        }
+
+        .code-section button {
+            margin-top: 10px;
+        }
+        .code-section a{
+            text-decoration: none;
+        }
+
+        .code-section a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+
+        .codes-left, .codes-right {
+            width: 48%; /* Equal width */
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .codes-left h2, .codes-right h2 {
+            text-align: center;
+            color: #0079b6;
+        }
+        .codes-left form, .codes-right form {
+            margin-bottom: 20px;
+        }
+
+        .codes-left form label, .codes-right form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .codes-left form input, .codes-right form input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+        } 
+
+        .codes-left form button, .codes-right form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #0079b6;
+            color: white;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .code-section {
+                flex-direction: column;
+            }
+
+            .codes-left, .codes-right {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }

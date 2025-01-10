@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Score Management</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Toggle button for sidebar -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+<div class="the-body" >
+    <!-- Main Content -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <!-- Conditional sidebar content based on user role -->
+                <!-- Backend will render these links depending on whether user is staff or student -->
+                {% if user_role == 'staff' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/score-entry" class="{% if current_page == 'score-entry' %}active{% endif %}">Enter Scores</a></li>
+                <li><a href="/class-report" class="{% if current_page == 'class-report' %}active{% endif %}">Reports</a></li>
+
+                {% elif user_role == 'admin' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/score-entry" class="{% if current_page == 'score-entry' %}active{% endif %}">Enter Scores</a></li>
+                <li><a href="/class-report" class="{% if current_page == 'class-report' %}active{% endif %}">Reports</a></li>
+                <li><a href="/admin-dashboard" class="{% if current_page == 'admin-dashboard' %}active{% endif %}">Admin Dashboard</a></li>
+
+                {% elif user_role == 'student' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/student-report" class="{% if current_page == 'student-report' %}active{% endif %}">Reports</a></li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Student Score Management Content -->
+    <main class="main-content">
+        <section>
+            <h2>Student Score Management</h2>
+            
+            <p><strong>Current Term:</strong> {{ current_term }}</p>
+            <p><strong>Current Year:</strong> {{ current_year }}</p>
+
+            <!-- Class and Subject Filters -->
+            <div class="selection-section">
+                <form method="GET" action="/score-entry">
+
+                    <label for="class-select">Select Class:</label>
+                    <select id="class-select" name="class_id" onchange="this.form.submit()" required>
+                        <a href="/reset-filters" class="reset-button">Reset Filters</a>
+                        <option value="" disabled {% if not selected_class_id %}selected{% endif %}>Select Class</option>
+                        {% for class_item in classes %}
+                            <option value="{{ class_item[0] }}" {% if class_item[0] == selected_class_id %}selected{% endif %}>
+                                {{ class_item[1] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    
+    
+                    <label for="subject-select">Select Subject:</label>
+                    <select id="subject-select" name="subject_id" onchange="this.form.submit()" required>
+                        <option value="" disabled {% if not selected_subject_id %}selected{% endif %}>Select Subject</option>
+                        {% for subject in subjects %}
+                            <option value="{{ subject[0] }}" {% if subject[0] == selected_subject_id %}selected{% endif %}>
+                                {{ subject[1] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <a href="/reset-filters" class="reset-button">Reset Filters</a>
+
+                </form>
+            </div>
+    
+
+            <div class="search-section">
+                <label for="search-student">Search Student:</label>
+                <input type="text" id="search-student" placeholder="Enter student name" oninput="filterStudents(this.value)">
+            </div>
+            
+            <!-- Student List and Scores -->
+            <div id="student-list-container">
+                <h3>Class Students</h3>
+                <form method="POST" action="/submit-scores">
+                    <table id="student-list-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Test 1</th>
+                                <th>Test 2</th>
+                                <th>Exam Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student.full_name }}</td>
+                        
+                                <!-- Test 1 -->
+                                <td>
+                                    <input type="number" 
+                                            name="scores[{{ student.student_id }}][test1]" 
+                                            min="0" 
+                                            max="20" 
+                                            value="{{ student.test1 }}" 
+                                            {% if student.test1 is not none %}readonly class="readonly-field"{% endif %}>
+                                    {% if student.test1 is not none %}
+                                    <button type="button" onclick="enableEdit(this, '{{ student.student_id }}', 'test1')">Edit</button>
+                                    {% endif %}
+                                </td>
+                        
+                                <!-- Test 2 -->
+                                <td>
+                                    <input type="number" 
+                                            name="scores[{{ student.student_id }}][test2]" 
+                                            min="0" 
+                                            max="20" 
+                                            value="{{ student.test2 }}" 
+                                            {% if student.test2 is not none %}readonly class="readonly-field"{% endif %}>
+                                    {% if student.test2 is not none %}
+                                    <button type="button" onclick="enableEdit(this, '{{ student.student_id }}', 'test2')">Edit</button>
+                                    {% endif %}
+                                </td>
+                        
+                                <!-- Exam -->
+                                <td>
+                                    <input type="number" 
+                                            name="scores[{{ student.student_id }}][exam_score]" 
+                                            min="0" 
+                                            max="60" 
+                                            value="{{ student.exam_score }}" 
+                                            {% if student.exam_score is not none %}readonly class="readonly-field"{% endif %}>
+                                    {% if student.exam_score is not none %}
+                                    <button type="button" onclick="enableEdit(this, '{{ student.student_id }}', 'exam')">Edit</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>>
+                    </table>
+                    <button type="submit">Submit All Scores</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+
+    <!-- JavaScript for managing scores and AJAX -->
+    <script>        
+        // Filter student rows in the table
+        function filterStudents(query) {
+            const rows = document.querySelectorAll('#student-list-table tbody tr');
+            rows.forEach(row => {
+                const studentName = row.cells[0].textContent.toLowerCase();
+                if (studentName.includes(query.toLowerCase())) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // for menu bar to replace sidebar when in phone mode
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+
+            // Adjust main content width based on sidebar visibility
+            const mainContent = document.querySelector('.main-content');
+            mainContent.classList.toggle('with-sidebar');
+        }
+        
+        function enableEdit(button, studentId, testType) {
+            const inputField = button.closest('td').querySelector('input');
+            inputField.readOnly = false;
+            inputField.classList.remove('readonly-field');
+            inputField.focus();
+            button.remove(); // Remove the edit button to avoid confusion
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Primary School Portal</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Header with full-width layout -->
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content section -->
+    <main>
+        <section class="login-container">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <small class="hint">Hint: Your password is your student ID number.</small>
+                <a href="/recover-password" class="recover-link">Forgot your password?</a>
+                
+                
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="/register" class="register-link">Register here</a></p>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer remains full-width and at the bottom -->
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

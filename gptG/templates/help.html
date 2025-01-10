@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+
+    <!-- Help and Support Content -->
+    <main class="support-container">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+        <div class="faq">
+            <h3>1. How do I reset my password?</h3>
+            <p>To reset your password, navigate to the login page, click on "Forgot Password?" and follow the instructions.</p>
+        </div>
+        <div class="faq">
+            <h3>2. Who do I contact for technical issues?</h3>
+            <p>For technical support, reach out to our IT department via <a href="mailto:support@schooldomain.com">support@schooldomain.com</a>.</p>
+        </div>
+        <div class="faq">
+            <h3>3. How can I update my profile information?</h3>
+            <p>To update your profile, go to Settings, select "Profile Settings," and make your changes.</p>
+        </div>
+
+        <h2>Contact Support</h2>
+        <p>If you need further assistance, please reach out through one of the following methods:</p>
+        <ul>
+            <li>Email: <a href="mailto:support@schooldomain.com">support@schooldomain.com</a></li>
+            <li>Phone: +234 123 456 7890</li>
+        </ul>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+</body>
+</html>

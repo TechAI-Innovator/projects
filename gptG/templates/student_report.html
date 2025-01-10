@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Generation</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <!-- Toggle button for sidebar -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <a href="/update-profile" class="profile-link">
+                        <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                        <span>Profile</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+<div class="the-body" >
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <!-- Conditional sidebar content based on user role -->
+                <!-- Backend will render these links depending on whether user is staff or student -->
+                {% if user_role == 'staff' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/score-entry" class="{% if current_page == 'score-entry' %}active{% endif %}">Enter Scores</a></li>
+                <li><a href="/class-report" class="{% if current_page == 'class-report' %}active{% endif %}">Reports</a></li>
+
+                {% elif user_role == 'admin' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/score-entry" class="{% if current_page == 'score-entry' %}active{% endif %}">Enter Scores</a></li>
+                <li><a href="/class-report" class="{% if current_page == 'class-report' %}active{% endif %}">Reports</a></li>
+                <li><a href="/admin-dashboard" class="{% if current_page == 'admin-dashboard' %}active{% endif %}">Admin Dashboard</a></li>
+
+                {% elif user_role == 'student' %}
+                <li><a href="/dashboard" class="{% if current_page == 'dashboard' %}active{% endif %}">Home</a></li>
+                <li><a href="/student-report" class="{% if current_page == 'student-report' %}active{% endif %}">Reports</a></li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h2>Student Report</h2>
+        <div class="student-list-container">
+            <table border="1" id="student-list-table">
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Year</th>
+                        <th>Class</th>
+                        <th>Subject</th>
+                        <th>Test 1</th>
+                        <th>Test 2</th>
+                        <th>Total Test</th>
+                        <th>Exam Score</th>
+                        <th>Total Score</th>
+                        <th>Last Term Cum BF</th>
+                        <th>Cumulative Score</th>
+                        <th>Pupils Avg</th>
+                        <th>Class Avg</th>
+                        <th>Grade</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for score in scores %}
+                    <tr>
+                        <td>{{ score.term }}</td>
+                        <td>{{ score.year }}</td>
+                        <td>{{ score.class_name }}</td>
+                        <td>{{ score.subject_name }}</td>
+                        <td>{{ score.test1 }}</td>
+                        <td>{{ score.test2 }}</td>
+                        <td>{{ score.total_test }}</td>
+                        <td>{{ score.exam_score }}</td>
+                        <td>{{ score.total_score }}</td>
+                        <td>{{ score.last_term_cum_bf }}</td>
+                        <td>{{ score.cumulative_score }}</td>
+                        <td>{{ score.pupils_avg }}</td>
+                        <td>{{ score.class_avg }}</td>
+                        <td>{{ score.grade }}</td>
+                        <td>{{ score.position }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+    <nav>
+        <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+    </nav>
+</footer>
+
+    <script>
+    // for menu bar to replace sidebar when in phone mode
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('active');
+
+        // Adjust main content width based on sidebar visibility
+        const mainContent = document.querySelector('.main-content');
+        mainContent.classList.toggle('with-sidebar');
+    }
+
+    </script>
+
+</body>
+</html>

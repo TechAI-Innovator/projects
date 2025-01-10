@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Staff</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="staff-selection">
+            <h2>Select Staff</h2>
+            <form action="/fetch-staff-assignments" method="post">
+                <label for="staff_id">Choose a staff member:</label>
+                <select id="staff_id" name="staff_id" required>
+                    {% for staff in staff_list %}
+                    <option value="{{ staff.staff_id }}">{{ staff.surname }} {{ staff.first_name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn-submit">View Assignments</button>
+            </form>
+        </section>
+
+        {% if selected_staff %}
+        <div class="management-container">
+            <!-- Left Section -->
+            <section class="assignments-container">
+                <h2>Manage Assignments for {{ selected_staff.surname }} {{ selected_staff.first_name }}</h2>
+
+                <!-- Classes -->
+                <div class="form-container1">
+                    <fieldset>
+                        <legend>Classes Assigned</legend>
+                        <form action="/delete-classes" method="post">
+                            <input type="hidden" name="staff_id" value="{{ selected_staff.staff_id }}">
+                            {% for assigned_class in assigned_classes %}
+                                <div>
+                                    <input type="checkbox" id="class_{{ assigned_class.class_id }}" name="class_ids[]" value="{{ assigned_class.class_id }}">
+                                    <label for="class_{{ assigned_class.class_id }}">{{ assigned_class.class_name }}</label>
+                                </div>
+                            {% endfor %}
+                            <button type="submit">Delete Selected Classes</button>
+                        </form>
+                    </fieldset>
+                </div>
+
+                <!-- Subjects -->
+                <div class="form-container1">
+                    <fieldset>
+                        <legend>Subjects by Class</legend>
+                        {% for assigned_class in assigned_classes %}
+                            <fieldset>
+                                <legend>{{ assigned_class.class_name }}</legend>
+                                <form action="/delete-subjects" method="post">
+                                    <input type="hidden" name="staff_id" value="{{ selected_staff.staff_id }}">
+                                    <input type="hidden" name="class_id" value="{{ assigned_class.class_id }}">
+                                    {% for subject in assigned_class.subjects %}
+                                        <div>
+                                            <input type="checkbox" id="subject_{{ subject.subject_id }}" name="subject_ids[]" value="{{ subject.subject_id }}">
+                                            <label for="subject_{{ subject.subject_id }}">{{ subject.subject_name }}</label>
+                                        </div>
+                                    {% endfor %}
+                                    <button type="submit">Delete Selected Subjects</button>
+                                </form>
+                            </fieldset>
+                        {% endfor %}
+                    </fieldset>
+                </div>
+
+                <!-- Delete Staff -->
+                 <div class="form-container1">
+                    <form action="/delete-staff" method="post">
+                        <input type="hidden" name="staff_id" value="{{ selected_staff.staff_id }}">
+                        <button type="submit" style="background-color: red; color: white;">Delete Staff</button>
+                    </form>
+                </div>
+            </section>
+
+
+            <!-- Right Section: New Feature -->
+            <section class="add-assignments-container">
+                <h2>Add Classes or Subjects for {{ selected_staff.surname }} {{ selected_staff.first_name }}</h2>
+                <div class="form-container1">
+                    <form action="/add-classes-and-subjects" method="post">
+                        <input type="hidden" name="staff_id" value="{{ selected_staff.staff_id }}">
+                        {% for class_id, class_info in unassigned_classes.items() %}
+                            <fieldset>
+                                <legend>{{ class_info['class_name'] }}</legend>
+                                {% if class_info['subjects'] %}
+                                    <label>Select Subjects:</label>
+                                    {% for subject in class_info['subjects'] %}
+                                        <div>
+                                            <input type="checkbox" id="subject_{{ subject.subject_id }}" name="assignments[{{ class_id }}][]" value="{{ subject.subject_id }}">
+                                            <label for="subject_{{ subject.subject_id }}">{{ subject.subject_name }}</label>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No subjects available for {{ class_info['class_name'] }}</p>
+                                {% endif %}
+                            </fieldset>
+                        {% endfor %}
+                        <button type="submit">Add Selected Classes and Subjects</button>
+                    </form>
+                </div>   
+            </section>
+        </div>
+
+        <section class="make-admin">
+            <form action="/toggle-admin" method="post">
+                <input type="hidden" name="staff_id" value="{{ selected_staff.staff_id }}">
+                {% if selected_staff.is_admin %}
+                    <h2>is admin</h2>
+                    <button type="submit" name="action" value="revoke" style="background-color: red; color: white;">Revoke Admin</button>
+                {% else %}
+                    <h2>not admin</h2>
+                    <button type="submit" name="action" value="grant" style="background-color: green; color: white; align-self: center;">Make Admin</button>
+                {% endif %}
+            </form>
+        </section>
+        {% endif %}
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

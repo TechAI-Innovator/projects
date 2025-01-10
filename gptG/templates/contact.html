@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Primary School Portal</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/futa-logo.png') }}" type="image/png">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="School Logo" class="logo">
+                <h3>Primary <br> School</h3>
+            </div>
+            <nav class="menu"> 
+                <div class="other-sections"> 
+                    <a href="/logout">Logout</a>
+                </div>
+                <div class="profile-section">
+                    <img src="{{ url_for('static', filename = 'images/futa-logo.png') }}" alt="Profile Picture" class="profile-pic">
+                    <a href="/update-profile">Profile</a>
+                </div> 
+            </nav>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or need assistance, you can reach us through the following options:</p>
+        
+        <div class="contact-options">
+            <p><strong>Phone:</strong> <a href="tel:+123456789">+1 234 567 89</a></p>
+            <p><strong>WhatsApp:</strong> 
+                <a href="https://wa.me/123456789?text=Hello%20I%20have%20a%20question" target="_blank">
+                    Send a WhatsApp Message
+                </a>
+            </p>
+            <p><strong>Email:</strong> <a href="mailto:school@example.com">school@example.com</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Primary School Name. All rights reserved.</p>
+        <nav>
+            <a href="/contact">Contact Us</a> |
+            <a href="/help">Help</a>
+        </nav>
+    </footer>
+
+</body>
+</html>
