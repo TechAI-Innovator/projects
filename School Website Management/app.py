@@ -1,10 +1,10 @@
 from flask import Flask, session, render_template, request, Response, redirect, url_for, jsonify, flash
 # Learn from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from datetime import datetime
+from voice_handler import process_voice_command
 from engine import (
     verify_user,
     register_user,
-    login_admin,
     add_staff,
     get_staff_list,
     get_class_list,
@@ -95,20 +95,56 @@ def register():
 
     return render_template('registration_page.html')
 
-# Dashboard Route
-@app.route('/dashboard')
-def dashboard():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
 
+
+
+
+
+# Dashboard Route
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
     user_role = session.get('role')
     user_name = session.get('user_name')
+
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            print("\nReceived POST data:", data)  # Debugging point
+            user_input = data.get("command", "").lower().strip() if data else None
+            print("\nUser Command:", user_input)  # Debugging point
+            input_type = data.get("input_type", "text")  # Default to text
+            print(f"\nthe input type is {input_type}")
+
+            if not user_input:
+                return jsonify({"error": "Empty or invalid command received."}), 400
+            
+            if input_type == "voice":
+                # Remove activation phrases or filler text
+                activation_phrases = ["voice assistant is listening."]
+                for phrase in activation_phrases:
+                    user_input = user_input.replace(phrase, "").strip()
+
+            # Process voice command using chain logic
+            result = process_voice_command(user_input, user_role)
+            return jsonify(result)
+
+
+        except Exception as e:
+            return jsonify({"error": f"An error occurred: {str(e)}"}), 500
 
     return render_template('Dashboard.html',
                            user_role=user_role,
                            user_name=user_name,
                            current_page='dashboard'
                            )
+
+
+
+
+
+
 
 # Score entry route
 @app.route('/score-entry', methods=['GET'])
@@ -679,6 +715,54 @@ def download_staff_codes():
     response = Response(output, mimetype="text/csv")
     response.headers["Content-Disposition"] = "attachment; filename=staff_verification_codes.csv"
     return response
+
+
+
+# @app.route('/voice-command', methods=['POST'])
+# def handle_voice_command():
+#     data = request.get_json()
+#     print(f'\n data in voice now is {data}')
+#     command = data.get('command', '').lower()
+#     print(f'\ncommand now is {command}')
+
+#     # Mapping of spelled-out numbers to digits
+#     number_map = {
+#         "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
+#         "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
+#         "ten": 10
+#     }
+
+#     if command == "listening":
+#         return jsonify({"message": "I am listening to you"})
+
+#     # Arithmetic command processing
+#     elif "add" in command:
+#         try:
+#             # Split the command and replace spelled-out numbers with digits
+#             words = command.split()
+#             print(f'\nwords splitted are {words}')
+#             numbers = []
+#             for word in words:
+#                 if word.isdigit():
+#                     numbers.append(int(word))
+#                 elif word in number_map:
+#                     numbers.append(number_map[word])
+            
+#             print(f'\nnumbers in digit are {numbers}')
+
+#             if len(numbers) == 2:
+#                 result = sum(numbers)
+                
+#                 return jsonify({"message": f"The sum of {numbers[0]} and {numbers[1]} is {result}"})
+#             else:
+#                 return jsonify({"message": "Please provide exactly two numbers to add"})
+#         except Exception as e:
+#             return jsonify({"message": f"Error processing your command: {str(e)}"})
+
+#     else:
+#         return jsonify({"message": "Command not recognized"})
+
+
 
 
 

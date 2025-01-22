@@ -994,7 +994,6 @@ def fetch_class_codes():
     finally:
         conn.close()
 
-
 def fetch_staff_codes():
     try:
         conn = get_db_connection()
@@ -1012,4 +1011,3 @@ def fetch_staff_codes():
         return []
     finally:
         conn.close()
-
